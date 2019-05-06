@@ -6,7 +6,7 @@ import re
 
 from cram._encoding import b
 
-__all__ = ['esc', 'glob', 'regex', 'unified_diff']
+__all__ = ['esc', 'glob', 'regex', 'emptyline', 'unified_diff']
 
 def _regex(pattern, s):
     """Match a regular expression or return False if invalid.
@@ -58,6 +58,10 @@ def regex(el, l):
 def glob(el, l):
     """Apply a glob match to a line annotated with '(glob)'"""
     return _matchannotation('glob', _glob, el, l)
+
+def emptyline(el, l):
+    """Get an emptyline from a line annotated with '(emptyline)'"""
+    return _matchannotation('emptyline', lambda *args: "\n", el, l)
 
 def esc(el, l):
     """Apply an escape match to a line annotated with '(esc)'"""
